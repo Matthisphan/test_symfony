@@ -1,0 +1,66 @@
+{# templates/student/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}test_symfony | Liste{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{% set sortedStudents = students|sort((a, b) => a.lastName <=> b.lastName) %}
+
+<section class="container">
+    <table>
+        <caption>Liste des étudiants</caption>
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Classe</th>
+                <th scope="col">Matière</th>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Note</th>
+                <th scope="col">Coefficient</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in sortedStudents %}
+                {% if student.marks is not empty %}
+                    {% set totalNote = 0 %}
+                    {% set totalCoefficient = 0 %}
+                    {% set totalMarks = student.marks|length %}
+
+                    {% for grade in student.marks %}
+                        <tr>
+                            {% if loop.first %}
+                                <td class="maj" rowspan="{{ totalMarks }}" data-label="Nom">{{ student.lastName }}</td>
+                                <td rowspan="{{ totalMarks }}" data-label="Prénom">{{ student.firstName }}</td>
+                                <td rowspan="{{ totalMarks }}" data-label="Classe">{{ student.classe }}</td>
+                            {% endif %}
+                            <td class="maj" data-label="Matière">{{ grade.matiere }}</td>
+                            <td class="maj" data-label="Intitulé">{{ grade.getNomControle() }}</td>
+                            <td data-label="Note">{{ grade.note }}</td>
+                            <td data-label="Coefficient">{{ grade.coefficient }}</td>
+                            {% set totalNote = totalNote + (grade.note * grade.coefficient) %}
+                            {% set totalCoefficient = totalCoefficient + grade.coefficient %}
+                        </tr>
+
+                    {% endfor %}
+
+                    <tr class="last_tr">
+                        <td colspan="7" data-label=""><strong>Moyenne Générale : {{ (totalCoefficient != 0) ? totalNote / totalCoefficient : 0 }}</strong></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+
+{#
+
+#}
