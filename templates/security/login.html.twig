@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <form class="form" method="post">
+        {% if error %}
+            <script>
+                function afficherAlerte() {
+                    alert("Erreur de connexion : mot de passe ou email invalide.");
+                }
+                afficherAlerte();
+            </script>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <div class="title">
+            <img src="{{ asset('images/logo_login.png') }}" alt="login_logo">
+        </div>
+
+        <input type="email" value="{{ last_username }}" placeholder="Email :" name="email" id="inputEmail" class="email input" autocomplete="email" required autofocus>
+        <input type="password" name="password" placeholder="Mot de passe :" id="inputPassword" class="email input" autocomplete="current-password" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button class="btn" type="submit">Connexion</button>
+    </form>
+</div>
+{% endblock %}

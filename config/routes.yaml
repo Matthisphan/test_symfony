@@ -1,0 +1,10 @@
+controllers:
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+
+student_list:
+  path: /
+  controller: App\Controller\StudentController::list
+  methods: [GET]

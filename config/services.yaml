@@ -1,0 +1,26 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+  # Ajoutez ici les paramètres qui ne changent pas sur chaque machine où l'application est déployée
+
+services:
+  # Configuration par défaut pour les services dans *ce* fichier
+  _defaults:
+    autowire: true # Injecte automatiquement les dépendances dans vos services.
+    autoconfigure: true # Enregistre automatiquement vos services en tant que commandes, écouteurs d'événements, etc.
+
+  # Les classes dans src/ sont disponibles pour être utilisées en tant que services
+  # Cela crée un service par classe dont l'ID est le nom de classe entièrement qualifié
+  App\:
+    resource: "../src/*"
+    exclude: "../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}"
+
+  # Les services dans les contrôleurs EasyAdmin
+  App\Controller\Admin\:
+    resource: "../src/Controller/Admin/"
+    tags: ["controller.service_arguments"]
+
+  # Si vous avez besoin de définir des services spécifiques, vous pouvez les ajouter ici
