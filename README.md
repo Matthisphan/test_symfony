@@ -12,10 +12,12 @@
   
 - installer symfony cli
   
--installer postgresql : https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-      aller dans file > preferences > Paths > binary paths et ajouter "C:\Program Files\PostgreSQL\16\bin" à EDB Advanced Server 16 et à PostgreSQL 16, Set as default.
-      créer une base de donnée "bdd_test_symfony"
-      restaurer la bdd
+- installer postgresql : https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
+- ouvrir pgAdmin 4
+      - aller dans file > preferences > Paths > binary paths et ajouter "C:\Program Files\PostgreSQL\16\bin" à EDB Advanced Server 16 et à PostgreSQL 16, Set as default.
+      - créer une base de donnée "bdd_test_symfony"
+      - restaurer la bdd du projet
 
 - extraire le projet du rar
 
